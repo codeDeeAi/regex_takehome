@@ -8,10 +8,10 @@ const useAuthStore = defineStore('auth', () => {
     const logout = () => {};
 
     const getBearerToken = computed(() => {
-        if (typeof user.value === 'object') {
+        if (user.value !== null) {
             return user.value.token;
         }
-        return null;
+        return '';
     });
 
     const getUser = computed(() => {

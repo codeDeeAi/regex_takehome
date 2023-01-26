@@ -7,12 +7,13 @@ axios.defaults.baseURL =
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Accept"] = "application/json";
 axios.defaults.headers.common["Content-Type"] = "application/json";
-// axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-if (useAuthStore().isLoggedIn) {
-    axios.defaults.headers.common[
-        "Authorization"
-    ] = `Bearer ${useAuthStore().getBearerToken}`;
-}
+
+axios.interceptors.request.use((config) => {
+    const authStore = useAuthStore();
+    config.headers.Authorization = `Bearer ${authStore.getBearerToken}`;
+    config.headers.Accept = "application/json";
+    return config;
+});
 
 // Add a response interceptor
 axios.interceptors.response.use(
