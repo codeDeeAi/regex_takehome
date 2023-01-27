@@ -29,7 +29,6 @@ const onFileSelected = (event) => {
 // Clear Image and Reader
 const clearImage = () => {
     image.value = null;
-    preview_image.value = null;
     return;
 };
 
