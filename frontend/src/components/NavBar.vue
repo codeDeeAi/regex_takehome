@@ -26,6 +26,10 @@ import useAuthStore from '../stores/auth';
                     </span>
                     <span class="my-auto">favorites</span>
                 </router-link>
+                <router-link to="image-moderation" v-if="useAuthStore().canAdminAccess"
+                    class="py-2 px-5 text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 uppercase">
+                    Moderation
+                </router-link>
                 <router-link to="upload-image"
                     class="py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 uppercase">upload</router-link>
                 <router-link to="login" v-if="!useAuthStore().isLoggedIn"
