@@ -1,9 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { notify } from './config/notification';
 import NavBar from './components/NavBar.vue'
 
-notify('Heloo');
 </script>
 
 <template>

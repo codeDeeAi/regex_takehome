@@ -34,4 +34,36 @@ class Blog extends Model
      * @var array<string, string>
      */
     protected $casts = [];
+
+    /**
+     * Get the user that owns the Blog
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLoadTable($query)
+    {
+        $query = $query->select(
+            'id',
+            'user_id',
+            'image',
+            'title',
+            'description',
+            'approved'
+        )->with('user', function ($query) {
+            $query->select('id', 'email');
+        });
+        
+        return $query;
+    }
 }

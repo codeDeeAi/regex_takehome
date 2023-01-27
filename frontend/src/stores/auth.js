@@ -1,11 +1,25 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, computed } from 'vue';
+import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
+import axios from '../config/axios';
+import { notify } from '../config/notification';
+
+const router = useRouter();
 
 const useAuthStore = defineStore('auth', () => {
     const user = ref(null);
 
-    const login = () => {};
-    const logout = () => {};
+    const logout = async() => {
+        await axios
+            .get("api/logout")
+            .then(() => {
+                setUser(null);
+                notify("Logged out sucessfully!", "success");
+                router.push({ name: 'home' })
+            })
+            .catch((error) => {}).finally(() => {});
+
+    };
 
     const getBearerToken = computed(() => {
         if (user.value !== null) {
@@ -22,7 +36,12 @@ const useAuthStore = defineStore('auth', () => {
         return (user.value !== null) ? true : false;
     });
 
-    return { login, logout, getBearerToken, getUser, isLoggedIn }
+    const setUser = (data) => {
+        user.value = data;
+        return;
+    };
+
+    return { logout, setUser, getBearerToken, getUser, isLoggedIn }
 }, {
     persist: true,
 }, );

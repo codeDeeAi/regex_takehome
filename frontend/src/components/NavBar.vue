@@ -28,9 +28,9 @@ import useAuthStore from '../stores/auth';
                 </router-link>
                 <router-link to="upload-image"
                     class="py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 uppercase">upload</router-link>
-                <router-link to="login"
+                <router-link to="login" v-if="!useAuthStore().isLoggedIn"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 focus:outline-none uppercase">login</router-link>
-                <button v-if="useAuthStore().isLoggedIn" type="button"
+                <button v-if="useAuthStore().isLoggedIn" type="button" @click="useAuthStore().logout"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 focus:outline-none uppercase">logout</button>
             </div>
         </div>

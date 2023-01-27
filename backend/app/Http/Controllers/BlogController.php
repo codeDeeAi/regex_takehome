@@ -14,14 +14,15 @@ class BlogController extends Controller
     {
         return Blog::loadTable()->paginate(20);
     }
-
+    
     // Create Blog
     public function create(CreateBlogRequest $request)
     {
         try {
             $name = $request->file('image')->getClientOriginalName();
             $path = $request->file('image')->store('public/images');
-
+            $path = str_replace('public', 'storage', $path);
+            
             $blog = Blog::create([
                 'user_id' => $request->user->id ?? null,
                 'image' => $path,

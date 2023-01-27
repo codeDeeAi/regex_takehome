@@ -99,8 +99,7 @@ const createBlog = async () => {
 
         <!-- Upload form -->
         <div class="flex justify-center my-6">
-            <form class="w w-64">
-
+            <form class="w-64">
                 <!-- Preview Image -->
                 <button type="button" @click="open_preview_modal = !open_preview_modal" v-if="preview"
                     class="mb-6 flex justify-center">
