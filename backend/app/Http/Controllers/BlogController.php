@@ -12,9 +12,15 @@ class BlogController extends Controller
     // Get Blog Posts
     public function index(Request $request)
     {
-        return Blog::loadTable()->paginate(20);
+        return Blog::loadTable()->approved()->get();
     }
-    
+
+    // Get Moderation Blog Posts
+    public function getModerationBlogs(Request $request)
+    {
+        return Blog::loadTable()->unapproved()->get();
+    }
+
     // Create Blog
     public function create(CreateBlogRequest $request)
     {
@@ -22,7 +28,7 @@ class BlogController extends Controller
             $name = $request->file('image')->getClientOriginalName();
             $path = $request->file('image')->store('public/images');
             $path = str_replace('public', 'storage', $path);
-            
+
             $blog = Blog::create([
                 'user_id' => $request->user->id ?? null,
                 'image' => $path,
@@ -40,5 +46,19 @@ class BlogController extends Controller
             // Response
             return  response()->json(['message' => 'Could not create post :('], 500);
         }
+    }
+
+    // Approved Moderated Blog
+    public function approveBlog(Request $request, Blog $blog)
+    {
+        $blog->update([
+            'approved' => true
+        ]);
+
+        // Response
+        return response()->json([
+            'message' => 'Post approved sucessfully',
+            'post' => $blog
+        ], 200);
     }
 }

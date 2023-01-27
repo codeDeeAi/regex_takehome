@@ -19,12 +19,12 @@ class AdminMiddleware
         if (
             $request->has('user')
             && !is_null($request->user)
-            && $request->user['type'] == 'admin'
+            && $request->user->role == 'admin'
         ) {
             return $next($request);
         }
         return response()->json([
-            'message' => 'Unauthorized !'
+            'message' => 'Unauthorized !',
         ], 403);
     }
 }

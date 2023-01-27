@@ -42,7 +42,7 @@ const useAuthStore = defineStore('auth', () => {
     };
 
     const canAdminAccess = computed(() => {
-        return (isLoggedIn && getUser.role == 'admin') ? true : false;
+        return (user.value !== null && user.value.role == 'admin') ? true : false;
     });
 
     return { logout, setUser, getBearerToken, getUser, isLoggedIn, canAdminAccess }

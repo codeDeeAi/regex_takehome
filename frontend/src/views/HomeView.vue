@@ -26,7 +26,7 @@ getBlogs();
 <template>
   <section>
     <div class="grid gap-2 grid-cols-6 p-4">
-      <ProductCard v-for="(post, index) in blogs.data" :key="index" :data="post" />
+      <ProductCard v-for="(post, index) in blogs" :key="index" :data="post" />
     </div>
   </section>
 </template>

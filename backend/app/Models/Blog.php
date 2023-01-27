@@ -46,7 +46,7 @@ class Blog extends Model
     }
 
     /**
-     * Scope a query to only include popular users.
+     * Scope a query to load table data.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -65,5 +65,25 @@ class Blog extends Model
         });
         
         return $query;
+    }
+    /**
+     * Scope a query to only approved posts.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
+    }
+    /**
+     * Scope a query to only unapproved posts.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnapproved($query)
+    {
+        return $query->where('approved', false);
     }
 }

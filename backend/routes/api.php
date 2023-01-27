@@ -17,11 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+# Auth Routes
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
 
+# General Routes
 Route::middleware('access.token')->group(function () {
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::post('/blog', [BlogController::class, 'create']);
     Route::get('/logout', [AuthController::class, 'logout']);
+});
+
+# Admin Routes
+Route::middleware(['access.token', 'admin'])->group(function () {
+    Route::get('/moderation/blogs', [BlogController::class, 'getModerationBlogs']);
+    Route::patch('/approve/blog/{blog}', [BlogController::class, 'approveBlog']);
 });
